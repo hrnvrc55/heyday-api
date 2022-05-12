@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "generaldbuser",
+    "password": "QWE123qwe++",
+    "database": "heyday_dev",
+    "host": "5s.e-rac.com",
     "dialect": "mysql"
   }
 }
