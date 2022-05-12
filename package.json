@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development PORT=8085 nodemon index.js",
-    "start":"NODE_ENV=production PORT=8086 node index.js"
+    "start":"NODE_ENV=production PORT=3002 node index.js"
   },
   "author": "",
   "license": "ISC",
