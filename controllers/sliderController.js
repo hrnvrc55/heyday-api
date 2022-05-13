@@ -1,4 +1,5 @@
 const Models = require("../models/index");
+const fsPromises = require("fs/promises");
 
 module.exports = {
     async getAll(req, res, next) {
@@ -77,24 +78,51 @@ module.exports = {
 
     },
     async delete(req, res, next) {
-
         const { id } = req.params;
+        await Models.Sliders.findOne({where:{id:id}}).then(async result => {
+            try {
+                await fsPromises.unlink(`public/sliders/${result.dataValues.image}`);
+                await Models.Sliders.destroy(
+                    { where: { id: id } }
+                ).then(result => {
+                    return res.status(200).json({
+                        status: true,
+                        message: "Veri Silindi",
+                        data: result,
+                    });
+                }).catch(err => {
+                    return res.status(400).json({
+                        status: true,
+                        result: null,
+                        error: {title: err.name,message: err.message, detail: err}
+                    })
+                })
+            } catch (err) {
+                return res.status(400).json({
+                    status: true,
+                    result: null,
+                    error: {title: err.name,message: err.message, detail: err}
+                })
+            }
+        })
 
-        await Models.Sliders.destroy(
-            { where: { id: id } }
-        ).then(result => {
-            return res.status(200).json({
-                status: true,
-                message: "Veri Silindi",
-                data: result,
-            });
-        }).catch(err => {
-            return res.status(400).json({
-                status: true,
-                result: null,
-                error: {title: err.name,message: err.message, detail: err}
-            })
-        });
+
+        //
+        // await Models.Sliders.destroy(
+        //     { where: { id: id } }
+        // ).then(result => {
+        //     return res.status(200).json({
+        //         status: true,
+        //         message: "Veri Silindi",
+        //         data: result,
+        //     });
+        // }).catch(err => {
+        //     return res.status(400).json({
+        //         status: true,
+        //         result: null,
+        //         error: {title: err.name,message: err.message, detail: err}
+        //     })
+        // });
     },
     async getOne(req, res, next) {
 
