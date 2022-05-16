@@ -16,7 +16,7 @@
   "production": {
     "username": "generaldbuser",
     "password": "QWE123qwe++",
-    "database": "heyday_dev",
+    "database": "heyday_live",
     "host": "5s.e-rac.com",
     "dialect": "mysql"
   }
