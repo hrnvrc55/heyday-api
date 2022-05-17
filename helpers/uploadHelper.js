@@ -1,4 +1,4 @@
-const {ref, uploadBytes} = require("firebase/storage");
+const {ref, deleteObject, getStorage, uploadBytes} = require("firebase/storage");
 const storage = require("../firebase");
 
 const uploadFile = (file) => new Promise(async (resolve, reject) => {
@@ -21,7 +21,25 @@ const uploadFileWithName = (file) => new Promise(async (resolve, reject) => {
         .catch((error) => reject({message: error.message}));
 });
 
+const deleteFile = (url) => new Promise(async (resolve, reject) => {
+
+    const storage = getStorage();
+
+// Create a reference to the file to delete
+    const desertRef = ref(storage, url);
+
+// Delete the file
+    deleteObject(desertRef).then(() => {
+        // File deleted successfully
+        resolve(true);
+    }).catch((error) => {
+        // Uh-oh, an error occurred!
+        reject({message: error.message})
+    });
+});
+
 module.exports = {
     uploadFile,
-    uploadFileWithName
+    uploadFileWithName,
+    deleteFile,
 }

@@ -14,6 +14,7 @@ router.get('/get-images/', workController.getCoverImages)
 router.get('/get-works-with-images/', workController.getWorksWithImages)
 router.post('/select-cover-image/', workController.selectCoverImage)
 router.get('/get-with-slug', workController.getWorkWithSlug)
+router.delete('/delete-image/:id', workController.deleteImage)
 
 
 module.exports = router

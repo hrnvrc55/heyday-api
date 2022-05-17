@@ -9,6 +9,8 @@ const storage = require("../firebase");
 const urlSlug = require('url-slug');
 const moment = require('moment');
 const url = require("url");
+const {deleteFile} = require("../helpers/uploadHelper");
+
 const uploadFile = (file) => new Promise(async (resolve, reject) => {
     const imageRef = ref(storage, file.originalname);
     const metatype = { contentType: file.mimetype, name: file.originalname };
@@ -59,11 +61,26 @@ module.exports = {
         });
     },
     async update(req,res){
-        return res.status(200).json({
-            status: true,
-            result: [],
-            error: null
-        })
+        const {title, subTitle, description, id} = req.body
+        const data = {
+            title,
+            subTitle,
+            description: description ? description : '',
+            slug: urlSlug(title)
+        }
+        await Models.Work.update(data,{where: {id: id}}).then(result => {
+            return res.status(200).json({
+                status: true,
+                result: data,
+                error: null
+            })
+        }).catch(err => {
+            return res.status(400).json({
+                status: true,
+                result: null,
+                error: {title: err.name,message: err.message, detail: err}
+            })
+        });
     },
     async delete(req,res){
         await Models.Work.destroy({where: {id: req.params.id}}).then(result => {
@@ -224,6 +241,50 @@ module.exports = {
                 error: {title: err.name,message: err.message, detail: err}
             })
         });
+    },
+
+    async deleteImage(req,res){
+        await Models.WorkImages.findOne({where: {id: req.params.id}}).then(async result => {
+            if(result){
+                await deleteFile(result.dataValues.imageLink).then(async result => {
+                    await Models.WorkImages.destroy({where: {id: req.params.id}}).then(result => {
+                        if(result === 1){
+                            return res.status(200).json({
+                                status: true,
+                                result: result,
+                                error: null
+                            })
+                        }else{
+                            return res.status(400).json({
+                                status: true,
+                                result: null,
+                                error: {title: 'Delete Error',message: 'This data not found', detail: null}
+                            })
+                        }
+
+                    }).catch(err => {
+                        return res.status(400).json({
+                            status: true,
+                            result: null,
+                            error: {title: err.name,message: err.message, detail: err}
+                        })
+                    });
+                }).catch((err) => {
+                    return res.status(400).json({
+                        status: true,
+                        result: null,
+                        error: {title: err.name,message: err.message, detail: err}
+                    })
+                })
+            }else{
+                return res.status(400).json({
+                    status: true,
+                    result: null,
+                    error: {title: 'Notfound',message: 'This data not found', detail: null}
+                })
+            }
+        });
+
     }
 
 }
