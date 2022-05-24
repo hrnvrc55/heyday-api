@@ -26,8 +26,6 @@ module.exports = {
             })
         });
     },
-
-
     async save(req, res, next) {
         await Models.Sliders.create({
             image: req.body.image,
