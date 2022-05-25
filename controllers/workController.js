@@ -39,11 +39,14 @@ module.exports = {
         });
     },
     async save(req,res){
-        const {title, subTitle, description} = req.body
+        const {title, titleTr, subTitle,subTitleTr, description,descriptionTr} = req.body
         const data = {
             title,
+            titleTr,
             subTitle,
+            subTitleTr,
             description: description ? description : '',
+            descriptionTr,
             slug: urlSlug(title)
         }
         await Models.Work.create(data).then(result => {
@@ -61,11 +64,14 @@ module.exports = {
         });
     },
     async update(req,res){
-        const {title, subTitle, description, id} = req.body
+        const {title, titleTr,subTitle,subTitleTr, description, descriptionTr, id} = req.body
         const data = {
             title,
+            titleTr,
             subTitle,
+            subTitleTr,
             description: description ? description : '',
+            descriptionTr,
             slug: urlSlug(title)
         }
         await Models.Work.update(data,{where: {id: id}}).then(result => {
@@ -169,9 +175,16 @@ module.exports = {
             }],
             where: {isCover: true}
         }).then(result => {
+            const newResult = result.map(item => {
+                if(req.headers["accept-language"] === 'tr'){
+                    item.Work.title = item.Work.titleTr,
+                    item.Work.subTitle = item.Work.subTitleTr
+                }
+                return item;
+            })
             return res.status(200).json({
                 status: true,
-                result: result,
+                result: newResult,
                 error: null
             })
         }).catch(err => {
@@ -221,6 +234,10 @@ module.exports = {
             }).then(result => {
                 newResult.imageList = result;
                 newResult.updatedAt = moment(newResult.updatedAt).format('MM/YYYY');
+                newResult.title = req.headers["accept-language"] === 'tr' ? newResult.titleTr : newResult.title;
+                newResult.subTitle = req.headers["accept-language"] === 'tr' ? newResult.subTitleTr : newResult.subTitle
+                newResult.description = req.headers["accept-language"] === 'tr' ? newResult.descriptionTr : newResult.description
+
                 return res.status(200).json({
                     status: true,
                     result: newResult,

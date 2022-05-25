@@ -3,10 +3,11 @@ const Models = require("../models/index");
 module.exports = {
     general: {
         async save(req, res) {
-            const {id,title, description,companyName,address,locationLink,contactEmail,workTogetherEmail,phoneNumber,faxNumber,established,principal} = req.body
+            const {id,title, description,descriptionTr,companyName,address,locationLink,contactEmail,workTogetherEmail,phoneNumber,faxNumber,established,principal} = req.body
             const data = {
                 title,
                 description,
+                descriptionTr,
                 companyName,
                 address,
                 locationLink,
@@ -50,7 +51,9 @@ module.exports = {
             }
         },
         async get(req, res) {
+            console.log(req.headers["accept-language"],'HEADERS')
             await Models.General.findOne().then(result => {
+                result.description = req.headers["accept-language"] === 'tr' ? result.descriptionTr : result.description
                 return res.status(200).json({
                     status: true,
                     result: result,
@@ -67,10 +70,11 @@ module.exports = {
     },
     owner:{
         async save(req, res) {
-            const {id,name, description, image} = req.body
+            const {id,name, description, image,descriptionTr} = req.body
             const data = {
                 name,
                 description,
+                descriptionTr,
                 image
             }
             if(id){
@@ -107,6 +111,8 @@ module.exports = {
         },
         async get(req, res) {
             await Models.Owner.findOne().then(result => {
+                result.description = req.headers["accept-language"] === 'tr' ? result.descriptionTr : result.description
+
                 return res.status(200).json({
                     status: true,
                     result: result,

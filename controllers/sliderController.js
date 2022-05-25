@@ -11,6 +11,8 @@ module.exports = {
         }).then(result => {
             const newResult = result.map(item => {
                 item.image = baseUrl + "/sliders/" + item.image;
+                item.title = req.headers["accept-language"] === 'tr' ? item.titleTr : item.title;
+                item.subTitle = req.headers["accept-language"] === 'tr' ? item.subTitleTr : item.subTitle;
                 return item;
             })
             return res.status(200).json({
@@ -30,7 +32,9 @@ module.exports = {
         await Models.Sliders.create({
             image: req.body.image,
             title: req.body.title,
+            titleTr: req.body.titleTr,
             subTitle: req.body.subTitle,
+            subTitleTr: req.body.subTitleTr,
             WorkId: req.body.workId,
 
         }).then(result => {
@@ -54,9 +58,10 @@ module.exports = {
             {
                 image: req.body.image,
                 title: req.body.title,
+                titleTr: req.body.titleTr,
                 subTitle: req.body.subTitle,
+                subTitleTr: req.body.subTitleTr,
                 WorkId: req.body.workId,
-
             },
             { where: { id: req.params.id } }
         ).then(result => {

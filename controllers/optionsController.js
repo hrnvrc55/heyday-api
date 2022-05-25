@@ -99,7 +99,9 @@ module.exports = {
             "Principal": req.t('Principal'),
             "Location": req.t('Location'),
             "Tel": req.t('Tel'),
-            "Fax": req.t('Fax')
+            "Mobile": req.t('Mobile'),
+            "Hire Us": req.t('Hire Us')
+
         })
     }
 }
