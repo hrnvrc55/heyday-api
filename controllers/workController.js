@@ -39,7 +39,7 @@ module.exports = {
         });
     },
     async save(req,res){
-        const {title, titleTr, subTitle,subTitleTr, description,descriptionTr} = req.body
+        const {title, titleTr, subTitle,subTitleTr, description,descriptionTr, metaDescription} = req.body
         const data = {
             title,
             titleTr,
@@ -47,6 +47,7 @@ module.exports = {
             subTitleTr,
             description: description ? description : '',
             descriptionTr,
+            metaDescription: metaDescription ? metaDescription : '',
             slug: urlSlug(title)
         }
         await Models.Work.create(data).then(result => {
@@ -64,13 +65,14 @@ module.exports = {
         });
     },
     async update(req,res){
-        const {title, titleTr,subTitle,subTitleTr, description, descriptionTr, id} = req.body
+        const {title, titleTr,subTitle,subTitleTr, description, descriptionTr, metaDescription, id} = req.body
         const data = {
             title,
             titleTr,
             subTitle,
             subTitleTr,
             description: description ? description : '',
+            metaDescription: metaDescription ? metaDescription : '',
             descriptionTr,
             slug: urlSlug(title)
         }
@@ -173,7 +175,9 @@ module.exports = {
             include: [{
                 model: Models.Work,
             }],
-            where: {isCover: true}
+            where: {isCover: true},
+            order: [[ Models.Work, 'createdAt', 'DESC' ]],
+
         }).then(result => {
             const newResult = result.map(item => {
                 if(req.headers["accept-language"] === 'tr'){

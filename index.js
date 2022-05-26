@@ -7,6 +7,7 @@ const optionsRouter = require('./routes/options')
 const authRouter = require('./routes/auth');
 const roleRouter = require('./routes/role');
 const sliderRouter = require('./routes/slider');
+const metaOptions = require('./routes/metaOptions')
 const i18next = require('i18next');
 const Backend = require('i18next-fs-backend');
 const middleware = require('i18next-http-middleware');
@@ -39,6 +40,7 @@ app.use('/api/options',optionsRouter)
 app.use('/api/auth',authRouter);
 app.use('/api/role',roleRouter);
 app.use('/api/slider',sliderRouter);
+app.use('/api/meta-options', metaOptions);
 
 app.get('/',(req,res) => {
     res.send('<h1>HEYDAY API</h1>')
