@@ -10,12 +10,28 @@ module.exports = ((sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        titleTr: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         subTitle: {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        subTitleTr: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         description: {
             type: DataTypes.TEXT,
+            allowNull: true
+        },
+        descriptionTr: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        metaDescription: {
+            type: DataTypes.STRING,
             allowNull: true
         },
         slug: {

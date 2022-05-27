@@ -1,28 +1,25 @@
 module.exports = ((sequelize, DataTypes) => {
-    const Owner = sequelize.define('Owner', {
+    const MetaOption = sequelize.define('MetaOption', {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true
         },
-        name: {
+        mainMetaDescription: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-        descriptionTr: {
-            type: DataTypes.TEXT,
             allowNull: true,
         },
-        image: {
+        worksMetaDescription: {
             type: DataTypes.STRING,
-            allowNull: false
-        }
+            allowNull: true,
+        },
+        aboutMetaDescription: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+
     })
 
-    return Owner;
+    return MetaOption;
 })

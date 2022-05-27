@@ -84,5 +84,24 @@ module.exports = {
                 error: {title: err.name,message: err.message, detail: err}
             })
         })
+    },
+    async webSiteStatics(req,res){
+        res.status(200).json({
+            "All" : req.t('All'),
+            "About": req.t('About'),
+            "Prev" : req.t('Prev'),
+            "Next": req.t('Next'),
+            "Hello": req.t('Hello'),
+            "Work Together": req.t('Work Together'),
+            "Award": req.t('Award'),
+            "We Are": req.t('We Are'),
+            "Established": req.t('Established'),
+            "Principal": req.t('Principal'),
+            "Location": req.t('Location'),
+            "Tel": req.t('Tel'),
+            "Mobile": req.t('Mobile'),
+            "Hire Us": req.t('Hire Us')
+
+        })
     }
 }

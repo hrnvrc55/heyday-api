@@ -14,6 +14,10 @@ module.exports = ((sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false,
         },
+        descriptionTr: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
         companyName: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -53,6 +57,18 @@ module.exports = ((sequelize, DataTypes) => {
             allowNull: true,
         },
         principal: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        instagram: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        facebook: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        linkedin: {
             type: DataTypes.STRING,
             allowNull: true,
         },
