@@ -3,7 +3,7 @@ const Models = require("../models/index");
 module.exports = {
     general: {
         async save(req, res) {
-            const {id,title, description,descriptionTr,companyName,address,locationLink,contactEmail,workTogetherEmail,phoneNumber,faxNumber,established,principal} = req.body
+            const {id,title, description,descriptionTr,companyName,address,locationLink,contactEmail,workTogetherEmail,phoneNumber,faxNumber,established,principal,instagram,facebook,linkedin} = req.body
             const data = {
                 title,
                 description,
@@ -16,7 +16,10 @@ module.exports = {
                 phoneNumber,
                 faxNumber,
                 established,
-                principal
+                principal,
+                instagram,
+                facebook,
+                linkedin
             }
             if(id){
                 await Models.General.update(data,{where: {id}}).then(result => {
