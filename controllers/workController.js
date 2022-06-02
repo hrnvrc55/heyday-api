@@ -180,7 +180,7 @@ module.exports = {
 
         }).then(result => {
             const newResult = result.map(item => {
-                if(req.headers["accept-language"] === 'tr'){
+                if(req.headers["accept-language"] === 'gr'){
                     item.Work.title = item.Work.titleTr,
                     item.Work.subTitle = item.Work.subTitleTr
                 }
@@ -238,9 +238,9 @@ module.exports = {
             }).then(result => {
                 newResult.imageList = result;
                 newResult.updatedAt = moment(newResult.updatedAt).format('MM/YYYY');
-                newResult.title = req.headers["accept-language"] === 'tr' ? newResult.titleTr : newResult.title;
-                newResult.subTitle = req.headers["accept-language"] === 'tr' ? newResult.subTitleTr : newResult.subTitle
-                newResult.description = req.headers["accept-language"] === 'tr' ? newResult.descriptionTr : newResult.description
+                newResult.title = req.headers["accept-language"] === 'gr' ? newResult.titleTr : newResult.title;
+                newResult.subTitle = req.headers["accept-language"] === 'gr' ? newResult.subTitleTr : newResult.subTitle
+                newResult.description = req.headers["accept-language"] === 'gr' ? newResult.descriptionTr : newResult.description
 
                 return res.status(200).json({
                     status: true,

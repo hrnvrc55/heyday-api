@@ -23,6 +23,7 @@ module.exports = {
                 mainMetaDescription: req.body.mainMetaDescription,
                 worksMetaDescription: req.body.worksMetaDescription,
                 aboutMetaDescription: req.body.aboutMetaDescription,
+                pinterestCode: req.body.pinterestCode
 
             },{where: {id:req.body.id}}).then(result => {
                 return res.status(200).json({
@@ -42,6 +43,7 @@ module.exports = {
                 mainMetaDescription: req.body.mainMetaDescription,
                 worksMetaDescription: req.body.worksMetaDescription,
                 aboutMetaDescription: req.body.aboutMetaDescription,
+                pinterestCode: req.body.pinterestCode
 
             }).then(result => {
                 return res.status(200).json({

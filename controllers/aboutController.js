@@ -56,7 +56,7 @@ module.exports = {
         async get(req, res) {
             console.log(req.headers["accept-language"],'HEADERS')
             await Models.General.findOne().then(result => {
-                result.description = req.headers["accept-language"] === 'tr' ? result.descriptionTr : result.description
+                result.description = req.headers["accept-language"] === 'gr' ? result.descriptionTr : result.description
                 return res.status(200).json({
                     status: true,
                     result: result,
@@ -114,7 +114,7 @@ module.exports = {
         },
         async get(req, res) {
             await Models.Owner.findOne().then(result => {
-                result.description = req.headers["accept-language"] === 'tr' ? result.descriptionTr : result.description
+                result.description = req.headers["accept-language"] === 'gr' ? result.descriptionTr : result.description
 
                 return res.status(200).json({
                     status: true,
