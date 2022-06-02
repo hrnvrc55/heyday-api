@@ -11,8 +11,8 @@ module.exports = {
         }).then(result => {
             const newResult = result.map(item => {
                 item.image = baseUrl + "/sliders/" + item.image;
-                item.title = req.headers["accept-language"] === 'tr' ? item.titleTr : item.title;
-                item.subTitle = req.headers["accept-language"] === 'tr' ? item.subTitleTr : item.subTitle;
+                item.title = req.headers["accept-language"] === 'gr' ? item.titleTr : item.title;
+                item.subTitle = req.headers["accept-language"] === 'gr' ? item.subTitleTr : item.subTitle;
                 return item;
             })
             return res.status(200).json({
