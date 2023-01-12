@@ -20,7 +20,7 @@ const uploadFileWithName = (file) => new Promise(async (resolve, reject) => {
         })
         .catch((error) => reject({message: error.message}));
 });
-
+ 
 const deleteFile = (url) => new Promise(async (resolve, reject) => {
 
     const storage = getStorage();
