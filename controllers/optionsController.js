@@ -18,7 +18,8 @@ module.exports = {
     },
     async save(req,res){
         const data = {
-            title: req.body.title
+            title: req.body.title,
+            loadingText: req.body.loadingText
         }
         if(req.body.id){
             await Models.Options.update(data,{where: {id: req.body.id}}).then(result => {
